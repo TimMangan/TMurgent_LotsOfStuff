@@ -105,7 +105,16 @@ namespace LotsOfStuffWPF_DotNetFramework
             Debug.WriteLine($"Test6_RunWorkerCompleted: CurrentCount = {CurrentCount}");
             workerTestRun = null;
             if (CloseAfterTest)
-                Close();
+            {
+                try
+                {
+                    Close();
+                }
+                catch
+                {
+                    Close();
+                }
+            }
         }
     }
 }

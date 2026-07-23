@@ -14,7 +14,7 @@ if ($Ins -eq $null) {
 	exit 1
 }
 
-$FullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuffWPF_DotNetFramework\LotsOfStuffWPF_DotNetFramework.exe"
+$FullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuff_PsfLauncher1.exe"
 
 .\RunATest.ps1  -ExeFilePath $FullExePath -Arguments "0" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS
 .\RunATest.ps1  -ExeFilePath $FullExePath -Arguments "1" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS

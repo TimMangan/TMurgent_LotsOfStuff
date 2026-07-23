@@ -17,6 +17,20 @@ param(
   ## NOTE: Call with -Verbose parameter to debug
 )
 
+function cleanup-package($package, $timeouts)
+{
+	################################
+	##### WARNING #####
+	##### Currently (7/2026) there is an OS bug related to reset-appxpackage. The bug looses committed memory in the Appx svchost process, and also in the user's explorer process for the user desktop.
+	##### Repeated calls will result in loosing virtual memory, eventually causing programs to crash and even OS reset.
+	##### Monitor the use of committed memory in tests that call this function.
+	################################
+	Start-Sleep  -Milliseconds $timeouts  ## added extra sleep to ensure system settles when we 	
+	reset-appxpackage -Package $package
+	Start-Sleep  -Milliseconds $timeouts  ## added extra sleep to ensure system settles when we 
+}
+
+
 Write-Host "Running $ExeFilePath $Arguments for $NumberOfRuns times"
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
@@ -30,8 +44,10 @@ else
 	$FullExeFilePath = Join-Path -Path $executingScriptDirectory -ChildPath $ExeFilePath
 	$isPackaged = $false
 }
-  
+$ExtraPackageSleepMS = 500  
 Start-Sleep  -Milliseconds $StartSettleMS
+
+$package = get-appxpackage -name "LotsOfStuff"
 
 $arr = @()
 for ($index= 1; $index -le $NumberOfRuns; $index++) {
@@ -45,33 +61,38 @@ for ($index= 1; $index -le $NumberOfRuns; $index++) {
   $duration = $endTime - $startTime
   $arr += $duration.TotalMilliseconds
   
-  Write-Verbose "Run $($index) Duration: $($duration.TotalMilliseconds) ms"
+  ###Write-Verbose "Run $($index) Duration: $($duration.TotalMilliseconds) ms"
 
 
   ## Cleanups that must occur between runs
+
   if ($Arguments -eq 3 -or $Arguments -eq 4)
   {
+	# These tests write to the registry, so clean that up between tests, depending on the type of
+	# app package/lack thereof.
 	  if ($isPackaged)
 	  {
-		  get-appxpackage -name "LotsOfStuff" | reset-appxpackage 
-		  Start-Sleep  -Milliseconds $StartSettleMS  ## added extra sleep to ensure system settles when we do this
-	  }
+		  cleanup-package $package $ExtraPackageSleepMS
+      }
 	  else
 	  {
-		remove-item -Path "HKCU\Test3_BaseKey" -Recurse -Force -ErrorAction SilentlyContinue
+		remove-item -Path "HKCU\Software\Test3_BaseKey" -Recurse -Force -ErrorAction SilentlyContinue
 	  }
   }
   if ($Arguments -eq 6)
   {
+	# These tests write files to the file system, , so clean that up between tests, depending on the type of
+	# app package/lack theirof.
+
 	  if ($isPackaged)
 	  {
-		  get-appxpackage -name "LotsOfStuff" | reset-appxpackage 
-		  Start-Sleep  -Milliseconds $StartSettleMS  ## added extra sleep to ensure system settles when we do this
+		  cleanup-package $package $ExtraPackageSleepMS
 	  }
 	  else
 	  {
 		  $testfolder = Join-Path -Path $executingScriptDirectory -ChildPath "Test6Folder"
 		  remove-item -Path $testfolder -Recurse -Force 
+		  Start-Sleep  -Milliseconds $ExtraPackageSleepMS     ## added extra sleep to ensure system settles 
 	  }
   }
   

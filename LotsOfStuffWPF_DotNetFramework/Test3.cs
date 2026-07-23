@@ -45,42 +45,50 @@ namespace LotsOfStuffWPF_DotNetFramework
             LastProgress = 0;
 
             RegistryKey key = Registry.CurrentUser;
-            RegistryKey testKey = key.CreateSubKey("Test3_BaseKey");
-            Test3_WriteRegistryStuff(testKey);
-
+            RegistryKey swKey = key.OpenSubKey("Software");
+            if (swKey != null)
+            {
+                RegistryKey testKey = swKey.CreateSubKey("Test3_BaseKey");
+                if (testKey != null)
+                {
+                    Test3_WriteRegistryStuff(testKey);
+                    testKey.Close();
+                }
+                swKey.Close();
+                key.Close();
+            }
             worker.ReportProgress(100);
         }
 
         private void Test3_WriteRegistryStuff(RegistryKey key)
         {
-            for (int keyindex=0; keyindex < MaxCount/1000; keyindex++)
+            for (int keyindex = 0; keyindex < MaxCount / 1000; keyindex++)
             {
                 string subkeyName = $"Test3_Subkey_{keyindex}";
-                using (RegistryKey subkey = key.CreateSubKey(subkeyName))
+                RegistryKey subkey = key.CreateSubKey(subkeyName);
+                if (subkey != null)
                 {
-                    if (subkey != null)
+                    CurrentCount++;
+                    for (int valueindex = 0; valueindex < 1000; valueindex++)
                     {
+                        string valueName = $"Value_{valueindex}";
+                        string valueData = $"Data_{valueindex}";
+                        subkey.SetValue(valueName, valueData);
                         CurrentCount++;
-                        for (int valueindex = 0; valueindex < 1000; valueindex++)
+                        int progress = (int)(CurrentCount * 100.0 / MaxCount);
+                        if ((int)progress > LastProgress)
                         {
-                            string valueName = $"Value_{valueindex}";
-                            string valueData = $"Data_{valueindex}";
-                            subkey.SetValue(valueName, valueData);
-                            CurrentCount++;
-                            int progress = (int)(CurrentCount * 100.0 / MaxCount);
-                            if ((int)progress > LastProgress)
-                            {
-                                LastProgress = (int)progress;
-                                workerTestRun.ReportProgress((int)progress);
-                                ///((BackgroundWorker)Dispatcher.Invoke(() => workerTestRun)).ReportProgress(progress);
-                            }
-                            if (CurrentCount >= MaxCount)
-                            {
-                                return; // Stop enumerating if the maximum count is reached
-                            }
+                            LastProgress = (int)progress;
+                            workerTestRun.ReportProgress((int)progress);
+                            ///((BackgroundWorker)Dispatcher.Invoke(() => workerTestRun)).ReportProgress(progress);
                         }
-
+                        if (CurrentCount >= MaxCount)
+                        {
+                            subkey.Close();
+                            return; // Stop enumerating if the maximum count is reached
+                        }
                     }
+                    subkey.Close();
                 }
                 if (CurrentCount >= MaxCount)
                 {

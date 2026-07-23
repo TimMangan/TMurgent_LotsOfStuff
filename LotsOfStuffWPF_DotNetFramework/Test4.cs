@@ -45,12 +45,24 @@ namespace LotsOfStuffWPF_DotNetFramework
             LastProgress = 0;
 
             RegistryKey key = Registry.CurrentUser;
-            RegistryKey testKey = key.CreateSubKey("Test3_BaseKey");
-            Test3_WriteRegistryStuff(testKey);
+            RegistryKey swKey = key.OpenSubKey("Software");
+            if (swKey != null)
+            {
+                RegistryKey testKey = swKey.CreateSubKey("Test3_BaseKey");
+                if (testKey != null)
+                {
+                    Test3_WriteRegistryStuff(testKey);
 
-            CurrentCount = 0;
-            LastProgress = 0;
-            Test2_EnumerateRegistryStuff(testKey);
+                    CurrentCount = 0;
+                    LastProgress = 0;
+                    Test2_EnumerateRegistryStuff(testKey);
+                    testKey.Close();
+                }
+                swKey.Close();
+                key.Close();
+            }
+
+           
 
             worker.ReportProgress(100);
         }

@@ -124,7 +124,7 @@ namespace LotsOfStuffWPF_DotNetFramework
                 case 4:
                     MaxCount = 50000;
                     CloseAfterTest = true;
-                    TestLabel.Text += $": Write, then read {MaxCount} registry values.";
+                    TestLabel.Text += $": Write, then enumerate {MaxCount} registry values.";
                     Test4();
                     break;
                 case 5:

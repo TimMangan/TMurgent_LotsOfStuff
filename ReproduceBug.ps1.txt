@@ -1,0 +1,31 @@
+# Test Script to reproduce the memory bug associated with reset-appxpackage.
+####
+# DESCRIPTION:
+#	The system appears to have a memory leak associated with the reset-appxpackage.
+#	The leak appears in the scvhost process associated with the CLIPSvc, along with
+#	a paralel leak in the user's explorer process running their desktop.
+# REPRODUCTION:
+#	1) Create a minimal MSIX package and locally deploy it to the machine via sideloading.
+#	   Additional parameters nearby may also be edited, but 1000 runs should be sufficient.
+#	2) Edit this script to set the package name as appropriate.
+#	3) Run this script as a standard user.
+#	4) Montor active and committed memory usage on the system.  The Windows Task Manager is sufficient if
+#	   you add columns for active and committed memory along with command line.  Sort by committed memory.
+#	   As the script runs, you will see those two processes grow.  Eventually the machine will run out of virtual memory.
+#	   Neither adding sleeps between instances of the reset, nor killing the script, will free the memory.
+#	   The service iteslf is non-stopable, however you can kill the process from the task manager.  Killing the
+#          explorer process is also possible, however it does not auto-restart for some reason.
+
+$PackageName = "LotsOfStuff"
+$NumberOfRuns   = 1000
+$WaitTimeMS  = 1000
+
+$ProgressPreference = 'SilentlyContinue'
+$pkg = Get-AppxPackage -Name $PackageName
+
+for ($index= 1; $index -le $NumberOfRuns; $index++) 
+{
+	Write-host "Pass $($index)"
+	Reset-AppXPackage -Package $pkg 
+	Start-Sleep -Milliseconds $WaitTimeMS
+}

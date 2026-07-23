@@ -52,10 +52,11 @@ namespace LotsOfStuffWPF_DotNetFramework
         }
         private void Test2_EnumerateRegistryStuff(RegistryKey key)
         {
-            foreach (string subkeyName in key.GetSubKeyNames())
+            if (CurrentCount < MaxCount)
             {
-                using (RegistryKey subkey = key.OpenSubKey(subkeyName))
+                foreach (string subkeyName in key.GetSubKeyNames())
                 {
+                    RegistryKey subkey = key.OpenSubKey(subkeyName);
                     if (subkey != null)
                     {
                         // Process the subkey here
@@ -68,25 +69,26 @@ namespace LotsOfStuffWPF_DotNetFramework
                         }
                         // Recursively enumerate subkeys
                         Test2_EnumerateRegistryStuff(subkey);
+                        subkey.Close();
                     }
                     if (CurrentCount >= MaxCount)
                     {
                         return; // Stop enumerating if the maximum count is reached
                     }
-                }                
-            }
-            foreach (string valueName in key.GetValueNames())
-            {
-                CurrentCount++;
-                double progress = (CurrentCount / (double)MaxCount) * 100;
-                if ((int)progress > LastProgress)
-                {
-                    LastProgress = (int)progress;
-                    workerTestRun.ReportProgress((int)progress);
                 }
-                if (CurrentCount >= MaxCount)
+                foreach (string valueName in key.GetValueNames())
                 {
-                    return; // Stop enumerating if the maximum count is reached
+                    CurrentCount++;
+                    double progress = (CurrentCount / (double)MaxCount) * 100;
+                    if ((int)progress > LastProgress)
+                    {
+                        LastProgress = (int)progress;
+                        workerTestRun.ReportProgress((int)progress);
+                    }
+                    if (CurrentCount >= MaxCount)
+                    {
+                        return; // Stop enumerating if the maximum count is reached
+                    }
                 }
             }
         }

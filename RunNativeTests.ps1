@@ -1,6 +1,9 @@
+# Disable progress bar display
+$ProgressPreference = 'SilentlyContinue'
+
 Write-Host -ForegroundColor "Cyan" "Starting Native Tests..." 
 
-$NumberOfRuns = 100
+$NumberOfRuns = 500
 $StartSettleMS = 5000
 $BetweenRunsSettleMS = 1000
 
