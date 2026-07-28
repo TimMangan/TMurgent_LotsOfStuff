@@ -58,7 +58,13 @@
       </Extensions>
     </Application>
   </Applications>
-
+  <Extensions>
+    <uap10:Extension Category="windows.installedLocationVirtualization">
+      <uap10:InstalledLocationVirtualization >
+        <uap10:UpdateActions AddedItems="keep" DeletedItems="keep" ModifiedItems="keep" />
+      </uap10:InstalledLocationVirtualization>
+    </uap10:Extension>
+  </Extensions>
   <Capabilities>
     <Capability Name="internetClient" />
     <rescap:Capability Name="runFullTrust" />

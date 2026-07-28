@@ -10,9 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 		ReproduceBug.ps1.txt = ReproduceBug.ps1.txt
 		RunATest.ps1 = RunATest.ps1
-		RunNativeTests.ps1 = RunNativeTests.ps1
-		RunPackagedLauncherTests.ps1 = RunPackagedLauncherTests.ps1
-		RunPackagedTests.ps1 = RunPackagedTests.ps1
+		RunWinUINativeTests.ps1 = RunWinUINativeTests.ps1
+		RunWPFNativeTests.ps1 = RunWPFNativeTests.ps1
+		RunWPFPackagedFullPSF.ps1 = RunWPFPackagedFullPSF.ps1
+		RunWpfPackagedLauncherTests.ps1 = RunWpfPackagedLauncherTests.ps1
+		RunWPFPackagedTests.ps1 = RunWPFPackagedTests.ps1
 	EndProjectSection
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "LotsOfStuffMsixPackage", "LotsOfStuffMsixPackage\LotsOfStuffMsixPackage.wapproj", "{9C11661C-49F7-4586-953C-FDD8709663DA}"
