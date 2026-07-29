@@ -13,14 +13,19 @@ The PowerShell scripts are used to automate the testing.
 
 >RunATest.ps1 is the workhorse that will run a given application test for a given scenario using a given workload multiple times, timing each run and reporting on the results to the screen.
 
+The following scripts are the primary scripts that you would execute to test a scenario.  Each will call RunATest to conduct mupliple repeated tests against each workload in the scenario.
+
 >RunNativeTests.ps1 is called to test the native application scenario for each workload.
 
 >RunPackagedTests.ps1 is called to test the scenario of the application running in the MSIX container without the presence of the PSF.
 
->RunPackagedLauncherTests.ps1 is called to test the scenarios where only the PsfLauncher is present, or when the Full PSF is present in the package.
+>RunPackagedLauncherTests.ps1 is called to test the scenarios where only the PsfLauncher is present, without the PSF fixups in the package.
 
-The containerized tests assume that the appropriate package has already been installed.
+>RunPackagedFullPsfTests.ps1 is called to test the scenarios where the Full PSF is present in the package.
+
+Each of those primary scripts that involve an MSIX package will contain the path to the package, which will be installed and cleaned up as part of the script.
+
 
 >ReproduceBug.ps1 is a script that you can use to verify if your system has an OS bug discovered recently that can cause your system to run out of virtual memory and crash when running these tests.  See details in the script.
 
-The solution was made using Visual Studio 2026 and uses no external components like Nuget packages..
+The solution was made using Visual Studio 2026 and uses no external components like Nuget packages, except for the SDK which is used in the MSIX package script.
