@@ -2,13 +2,13 @@
 $ProgressPreference = 'SilentlyContinue'
 
 
-Write-Host -ForegroundColor "Cyan" "Starting WPF Packaged Tests..." 
+Write-Host -ForegroundColor "Cyan" "Starting WinUI Packaged Tests..." 
 
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 $Scenario = "Packaged"
-$PackageRelativePath = "LotsOfStuffWPFPackage_1.0.0.0_AnyCPU.msix"
-$PackageName = "LotsOfStuffWPF"
+$PackageRelativePath = "LotsOfStuffWinUIPackage_1.0.0.0_x64.msix"
+$PackageName = "LotsOfStuffWinUI"
 $NumberOfRuns = 500
 $StartSettleMS = 5000
 $BetweenRunsSettleMS = 1000
@@ -28,7 +28,7 @@ if ($Ins -eq $null)
 	exit 1
 }
 
-$FullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuffWPF_DotNetFramework\LotsOfStuffWPF_DotNetFramework.exe"
+$FullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuffWinUI_DotNet.exe"
 
 #.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "0" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
 #.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "1" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
@@ -39,4 +39,4 @@ $FullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuffWPF_DotNetFramework\L
 .\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "6" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
 
 
-Write-Host -ForegroundColor "Cyan" "WPF Packaged Done" 
+Write-Host -ForegroundColor "Cyan" "WinUI Packaged Done" 

@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Minimal SDK project used only to invoke Inno Setup during build -->
+    <TargetFramework>net10.0-windows10.0.22000.0</TargetFramework>
+    <AssemblyName>LotsOfStuffWinUI_InnoInstaller</AssemblyName>
+    <RootNamespace>LotsOfStuffWinUI_InnoInstaller</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+    <!-- Change this if Inno Setup is installed elsewhere -->
+    <InnoCompilerPath Condition=" '$(InnoCompilerPath)' == '' ">D:\\ProgramsD\\Inno Setup 6\\ISCC.exe</InnoCompilerPath>
+
+    <!-- Script file and output directory (relative to this project file) -->
+    <ScriptFile>$(MSBuildThisFileDirectory)LotsOfStuffWinUI_Installer.iss</ScriptFile>
+    <InstallerOutputDir>$(MSBuildThisFileDirectory)..\..\Releases\</InstallerOutputDir>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Include the Inno script and redistributable in the project so they appear in Solution Explorer -->
+    <None Include="LotsOfStuffWinUI_Installer.iss" />
+    <None Include="..\Redistributable\WindowsAppRuntimeInstall-x64.exe" />
+    <ProjectReference Include="..\LotsOfStuffWinUI_DotNet\LotsOfStuffWinUI_DotNet.csproj" />
+  </ItemGroup>
+  <!-- Optional: enable publishing the Inno installer during build by setting /p:PublishOnBuild=true -->
+  <PropertyGroup>
+    <PublishOnBuild>true</PublishOnBuild>
+  </PropertyGroup>
+
+  <Target Name="InnoPublishOnBuild" AfterTargets="Build" Condition="'$(PublishOnBuild)'=='true' and '$(IsPublishing)'!='true' and Exists('$(InnoCompilerPath)') and Exists('$(ScriptFile)')">
+    <Message Importance="high" Text="InnoPublishOnBuild: PublishOnBuild=$(PublishOnBuild) IsPublishing=$(IsPublishing) InnoCompilerPath=$(InnoCompilerPath) ScriptFile=$(ScriptFile) ExistsCompiler=$([System.IO.File]::Exists('$(InnoCompilerPath)')) ExistsScript=$([System.IO.File]::Exists('$(ScriptFile)'))" />
+    <!-- Ensure output directory exists -->
+    <MakeDir Directories="$(InstallerOutputDir)" />
+
+    <!-- Run Inno Setup compiler -->
+    <Exec Command="&quot;$(InnoCompilerPath)&quot; &quot;$(ScriptFile)&quot;" WorkingDirectory="$(MSBuildThisFileDirectory)">
+      <Output TaskParameter="ExitCode" PropertyName="InnoExitCode" />
+    </Exec>
+
+    <Error Condition=" '$(InnoExitCode)' != '0' " Text="Inno Setup compiler failed with exit code $(InnoExitCode). Verify Inno Setup is installed and InnoCompilerPath is correct." />
+  </Target>
+
+</Project>

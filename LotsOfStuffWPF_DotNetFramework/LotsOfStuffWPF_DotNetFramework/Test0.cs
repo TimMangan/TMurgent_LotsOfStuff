@@ -39,11 +39,11 @@ namespace LotsOfStuffWPF_DotNetFramework
             BackgroundWorker worker = sender as BackgroundWorker;
             System.Threading.Thread.CurrentThread.Name = "Test0";
 
-            for (int i = 0; i <= 100; i++)
-            {
+            //for (int i = 0; i <= 100; i++)
+            //{
             //    System.Threading.Thread.Sleep(SleepTime); // Simulate work
-                worker.ReportProgress(i);
-            }
+            //    worker.ReportProgress(i);
+            //}
 
             worker.ReportProgress(100);
         }

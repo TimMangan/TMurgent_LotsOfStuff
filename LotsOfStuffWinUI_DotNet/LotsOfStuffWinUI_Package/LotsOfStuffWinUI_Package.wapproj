@@ -20,14 +20,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|ARM">
-      <Configuration>Debug</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|ARM">
-      <Configuration>Release</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|ARM64">
       <Configuration>Debug</Configuration>
       <Platform>ARM64</Platform>
@@ -36,29 +28,23 @@
       <Configuration>Release</Configuration>
       <Platform>ARM64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|AnyCPU">
-      <Configuration>Debug</Configuration>
-      <Platform>AnyCPU</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|AnyCPU">
-      <Configuration>Release</Configuration>
-      <Platform>AnyCPU</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
+    <PathToXAMLWinRTImplementations>LotsOfStuffWinUI_DotNet\</PathToXAMLWinRTImplementations>
+    <WinUISDKReferences>false</WinUISDKReferences>
   </PropertyGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
-    <ProjectGuid>9c11661c-49f7-4586-953c-fdd8709663da</ProjectGuid>
+    <ProjectGuid>d42a54a6-8bb2-4619-9117-3d53ab73c3f2</ProjectGuid>
     <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.26100.0</TargetPlatformMinVersion>
+    <AssetTargetFallback>net9.0-windows$(TargetPlatformVersion);$(AssetTargetFallback)</AssetTargetFallback>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <NoWarn>$(NoWarn);NU1702</NoWarn>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppxBundle>Never</AppxBundle>
-    <EntryPointProjectUniqueName>..\LotsOfStuffWPF_DotNetFramework\LotsOfStuffWPF_DotNetFramework.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\LotsOfStuffWinUI_DotNet\LotsOfStuffWinUI_DotNet.csproj</EntryPointProjectUniqueName>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateThumbprint>890C5C4E81A72279B7D39F46DCC6831229133296</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampServerUrl>http://timestamp.acs.microsoft.com</AppxPackageSigningTimestampServerUrl>
@@ -73,7 +59,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon1.ico" />
     <Content Include="Images\SplashScreen.scale-200.png" />
     <Content Include="Images\LockScreenLogo.scale-200.png" />
     <Content Include="Images\Square150x150Logo.scale-200.png" />
@@ -81,12 +66,28 @@
     <Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Images\StoreLogo.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
+    <Content Include="win-x64.pubxml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LotsOfStuffWinUI_DotNet\LotsOfStuffWinUI_DotNet.csproj">
+      <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
+      <PublishProfile>Properties\PublishProfiles\win-$(Platform).pubxml</PublishProfile>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2526" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.4.0" />
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- Send package output to the solution-level Releases folder -->
+    <AppxPackageDir>..\..\Releases\$(Configuration)\$(Platform)\</AppxPackageDir>
+  </PropertyGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" PrivateAssets="all" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LotsOfStuffWPF_DotNetFramework\LotsOfStuffWPF_DotNetFramework.csproj" />
-  </ItemGroup>
+  <PropertyGroup>
+    <!-- set to true when you want publish during build -->
+    <PublishOnBuild>true</PublishOnBuild>
+  </PropertyGroup>
+  <Target Name="PublishOnBuildTarget" AfterTargets="Build" Condition="'$(PublishOnBuild)'=='true' and '$(IsPublishing)'!='true' and Exists('Properties\\PublishProfiles\\win-$(Platform).pubxml')">
+    <Exec Command="&quot;$(MSBuildToolsPath)\msbuild.exe&quot; &quot;$(MSBuildProjectFullPath)&quot; /t:Publish /p:IsPublishing=true;Configuration=$(Configuration);Platform=$(Platform);PublishProfile=Properties\PublishProfiles\win-$(Platform).pubxml" />
+  </Target>
 </Project>

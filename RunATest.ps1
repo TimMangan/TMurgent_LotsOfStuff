@@ -96,7 +96,7 @@ for ($index= 1; $index -le $NumberOfRuns; $index++) {
   $argList = $Arguments + " " + $index
   $startTime = Get-Date
   
-  Start-Process -Wait	 "$($FullExeFilePath)" -ArgumentList "$($argList)"
+  Start-Process -Wait	 "$($FullExeFilePath)" -ArgumentList "$($argList)" 
 
   $endTime = Get-Date
 
@@ -106,8 +106,9 @@ for ($index= 1; $index -le $NumberOfRuns; $index++) {
   ###Write-Verbose "Run $($index) Duration: $($duration.TotalMilliseconds) ms"
 
 
+  ################################################
   ## Cleanups that must occur between runs
-
+  ################################################
   if ($Arguments -eq 3 -or $Arguments -eq 4)
   {
 	# These tests write to the registry, so clean that up between tests, depending on the type of
@@ -119,6 +120,7 @@ for ($index= 1; $index -le $NumberOfRuns; $index++) {
 	  else
 	  {
 		remove-item -Path "HKCU\Software\Test3_BaseKey" -Recurse -Force -ErrorAction SilentlyContinue
+		remove-item -Path "HKCU\Software\Test4_BaseKey" -Recurse -Force -ErrorAction SilentlyContinue
 	  }
   }
   if ($Arguments -eq 6)
@@ -132,8 +134,20 @@ for ($index= 1; $index -le $NumberOfRuns; $index++) {
 	  }
 	  else
 	  {
-		  $testfolder = Join-Path -Path $ExeFilePath.Parent -ChildPath "Test6Folder"
-		  remove-item -Path $testfolder -Recurse -Force 
+		  $parent = "C:"
+
+		  $testfolder = Join-Path -Path $parent -ChildPath "Test6Folder\*"
+		  #Write-host "ExeFilePath = $($FullExeFilePath)"
+		  #Write-host "parent = $($parent)"
+		  #Write-Host "testfolder = $($testfolder)"
+		  if (Test-Path  $testfolder)
+		  {
+			remove-item -Path $testfolder -Recurse -Force 
+		  }
+		  else
+		  {
+			  Write-Host "Test6Folder not found, so nothing to clean up."
+		  }
 		  Start-Sleep  -Milliseconds $ExtraPackageSleepMS     ## added extra sleep to ensure system settles 
 	  }
   }

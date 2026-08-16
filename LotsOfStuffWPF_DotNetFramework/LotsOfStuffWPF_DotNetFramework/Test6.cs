@@ -41,7 +41,7 @@ namespace LotsOfStuffWPF_DotNetFramework
             BackgroundWorker worker = sender as BackgroundWorker;
             System.Threading.Thread.CurrentThread.Name = "Test6";
 
-            DirectoryInfo directory = new DirectoryInfo("Test6Folder");
+            DirectoryInfo directory = new DirectoryInfo("C:\\Test6Folder");
             if (!directory.Exists)
             {
                 directory.Create();

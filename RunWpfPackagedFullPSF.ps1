@@ -7,8 +7,8 @@ Write-Host -ForegroundColor "Cyan" "Starting WPF Packaged with Full Psf Tests...
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 $Scenario = "FullPsf"
-$PackageRelativePath = "LotsOfStuffMsixPackage\AppPackages\LotsOfStuffMsixPackage_1.0.0.0_AnyCPU_Test\LotsOfStuffMsixPackage_1.0.0.1_FullPsf_AnyCPU.msix"
-$PackageName = "LotsOfStuff"
+$PackageRelativePath = "LotsOfStuffWPFPackage_1.0.0.1_FullPsf_AnyCPU.msix"
+$PackageName = "LotsOfStuffWPF"
 $NumberOfRuns = 500
 $StartSettleMS = 5000
 $BetweenRunsSettleMS = 1000
@@ -29,7 +29,7 @@ if ($Ins -eq $null)
 }
 
 
-$fullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuff_PsfLauncher1.exe"
+$fullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuffWPF_PsfLauncher1.exe"
 
 .\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "0" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
 .\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "1" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
