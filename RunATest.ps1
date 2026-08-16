@@ -65,14 +65,17 @@ Write-Host "Running $ExeFilePath $Arguments for $NumberOfRuns times"
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 ## Adjust for both full and relative path provided
-if ($ExeFilePath -like "C:\*") {
+if ($ExeFilePath -like "C:Program Files\LotsOfStuff*") 
+{
+	Write-host "Native Scenario being tested."
 	$FullExeFilePath = $ExeFilePath
-	$isPackaged = $true
+	$isPackaged = $false
 }
 else
 {
-	$FullExeFilePath = Join-Path -Path $executingScriptDirectory -ChildPath $ExeFilePath
-	$isPackaged = $false
+	Write-host "Packaged Scenario being tested."
+	$FullExeFilePath = $ExeFilePath
+	$isPackaged = $true
 }
 $ExtraPackageSleepMS = 500  
 Start-Sleep  -Milliseconds $StartSettleMS

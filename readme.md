@@ -139,7 +139,9 @@ The Test system should be Windows 11 (or later) and should be prepared with:
 
 > The .Net Framework 4.8.1 desktop runtime is needed to run the WPF application.
 
-> The .Net 10 desktop runtime (or later) installed to run the WinUI 3 application.  
+> The .Net 10 Runtime x64 (or later) installed to run the WinUI 3 packaged application.  
+
+> The .Net 10 Desktop Runtime (or later) installed to run the WinUI 3 packaged application.  
 
 > The Windows App Runtime 2.4.0 is needed to run the WinUI 3 applications.
 

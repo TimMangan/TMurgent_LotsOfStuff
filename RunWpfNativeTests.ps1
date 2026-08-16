@@ -4,7 +4,7 @@ $ProgressPreference = 'SilentlyContinue'
 Write-Host -ForegroundColor "Cyan" "Starting WPF Native Tests..." 
 
 $Scenario = "Native"
-$exeFullPath = "$($env:ProgramFilesX64)\LotsOfStuffWPF_DotNetFramework\LotsOfStuffWPF_DotNetFramework.exe"
+$exeFullPath = "$($env:ProgramFiles)\LotsOfStuffWPF_DotNetFramework\LotsOfStuffWPF_DotNetFramework.exe"
 $NumberOfRuns = 500
 $StartSettleMS = 5000
 $BetweenRunsSettleMS = 1000

@@ -4,7 +4,7 @@ $ProgressPreference = 'SilentlyContinue'
 Write-Host -ForegroundColor "Cyan" "Starting WinUI Native Tests..." 
 
 $Scenario = "Native"
-$exeFullPath = "$($env:ProgramFilesX64)\LotsOfStuffWinUI_DotNet\LotsOfStuffWinUI_DotNet.exe"
+$exeFullPath = "$($env:ProgramFiles)\LotsOfStuffWinUI_DotNet\LotsOfStuffWinUI_DotNet.exe"
 
 $NumberOfRuns = 500
 $StartSettleMS = 5000
