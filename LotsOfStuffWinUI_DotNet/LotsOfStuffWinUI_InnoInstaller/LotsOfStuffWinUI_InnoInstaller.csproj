@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- Minimal SDK project used only to invoke Inno Setup during build -->
     <TargetFramework>net10.0-windows10.0.22000.0</TargetFramework>
@@ -21,6 +21,7 @@
     <!-- Include the Inno script and redistributable in the project so they appear in Solution Explorer -->
     <None Include="LotsOfStuffWinUI_Installer.iss" />
     <None Include="..\Redistributable\WindowsAppRuntimeInstall-x64.exe" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4129.50" />
     <ProjectReference Include="..\LotsOfStuffWinUI_DotNet\LotsOfStuffWinUI_DotNet.csproj" />
   </ItemGroup>
   <!-- Optional: enable publishing the Inno installer during build by setting /p:PublishOnBuild=true -->

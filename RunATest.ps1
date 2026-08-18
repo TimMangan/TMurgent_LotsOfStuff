@@ -65,15 +65,17 @@ Write-Host "Running $ExeFilePath $Arguments for $NumberOfRuns times"
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 ## Adjust for both full and relative path provided
-if ($ExeFilePath -like "C:Program Files\LotsOfStuff*") 
+if ($ExeFilePath -like "C:\Program Files\Lots*") 
 {
-	Write-host "Native Scenario being tested."
+	## This is the native install scenario
+	Write-Host "Native Scenario"
 	$FullExeFilePath = $ExeFilePath
 	$isPackaged = $false
 }
 else
 {
-	Write-host "Packaged Scenario being tested."
+	## This is an MSIX scenario
+	Write-Host "Packaged Scenario"
 	$FullExeFilePath = $ExeFilePath
 	$isPackaged = $true
 }

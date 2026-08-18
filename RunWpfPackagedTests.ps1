@@ -7,7 +7,7 @@ Write-Host -ForegroundColor "Cyan" "Starting WPF Packaged Tests..."
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 $Scenario = "Packaged"
-$PackageRelativePath = "LotsOfStuffWPFPackage_1.0.0.0_AnyCPU.msix"
+$PackageRelativePath = "LotsOfStuffWPF_Package_1.0.0.0_AnyCPU.msix"
 $PackageName = "LotsOfStuffWPF"
 $NumberOfRuns = 500
 $StartSettleMS = 5000
@@ -30,12 +30,12 @@ if ($Ins -eq $null)
 
 $FullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuffWPF_DotNetFramework\LotsOfStuffWPF_DotNetFramework.exe"
 
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "0" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "1" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "2" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "3" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "4" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "5" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "0" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "1" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "2" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "3" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "4" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "5" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
 .\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "6" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
 
 

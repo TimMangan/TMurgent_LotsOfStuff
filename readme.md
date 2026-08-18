@@ -139,11 +139,11 @@ The Test system should be Windows 11 (or later) and should be prepared with:
 
 > The .Net Framework 4.8.1 desktop runtime is needed to run the WPF application.
 
-> The .Net 10 Runtime x64 (or later) installed to run the WinUI 3 packaged application.  
-
 > The .Net 10 Desktop Runtime (or later) installed to run the WinUI 3 packaged application.  
 
-> The Windows App Runtime 2.4.0 is needed to run the WinUI 3 applications.
+> The Windows App Runtime 2.4.0 is needed to run all packaged applications.
+
+> The latest VCRuntime redist installer (x64) is needed for the PSF.
 
 Copy the two native installers, and the MSIX packages, along with the above powershell script files to your test machine.
 You are responsible for installing the native installer or MSIX package prior to running a scenario script (although some scripts might attempt to install for you if missing).

@@ -7,7 +7,7 @@ Write-Host -ForegroundColor "Cyan" "Starting WinUI Packaged Tests..."
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 $Scenario = "Packaged"
-$PackageRelativePath = "LotsOfStuffWinUIPackage_1.0.0.0_x64.msix"
+$PackageRelativePath = "LotsOfStuffWinUI_Package_1.0.0.0_x64.msix"
 $PackageName = "LotsOfStuffWinUI"
 $NumberOfRuns = 500
 $StartSettleMS = 5000
@@ -22,7 +22,11 @@ if ($Ins -eq $null)
 	add-appxPackage $fullPackagePath
 	$Ins = (get-appxPackage -name $PackageName).InstallLocation
 }
-if ($Ins -eq $null) 
+if ($Ins -ne $null)
+{
+	$Ins = $Ins + "\LotsOfStuffWinUI_DotNet"
+}
+else 
 {
 	Write-Host -ForegroundColor "Red" "Could not find the installed package. Please install the package first."
 	exit 1
@@ -30,12 +34,12 @@ if ($Ins -eq $null)
 
 $FullExePath = Join-Path -Path $Ins -ChildPath "LotsOfStuffWinUI_DotNet.exe"
 
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "0" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "1" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "2" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "3" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "4" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
-#.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "5" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "0" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "1" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "2" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "3" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "4" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
+.\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "5" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
 .\RunATest.ps1 -Scenario $Scenario -ExeFilePath $FullExePath -Arguments "6" -NumberOfRuns $NumberOfRuns -StartSettleMS $StartSettleMS -BetweenRunsSettleMS $BetweenRunsSettleMS $PackageName $fullPackagePath
 
 

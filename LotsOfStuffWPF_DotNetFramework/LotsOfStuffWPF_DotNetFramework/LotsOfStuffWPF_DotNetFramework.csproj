@@ -95,6 +95,7 @@
     </EmbeddedResource>
     <None Include="Inno\LotsOfStuffWPF_InnoInstaller.csproj" />
     <None Include="Inno\LotsOfStuffWPF_Installer.iss" />
+    <None Include="LotsOfStuffWinUI_Installer.iss" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

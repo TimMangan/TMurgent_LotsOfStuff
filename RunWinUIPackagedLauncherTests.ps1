@@ -7,7 +7,7 @@ Write-Host -ForegroundColor "Cyan" "Starting WinUI Packaged with PsfLauncher Tes
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 $Scenario = "LauncherOnly"
-$PackageRelativePath = "LotsOfStuffWinUIPackage_1.0.0.1_Launcher_x64.msix"
+$PackageRelativePath = "LotsOfStuffWinUI_Package_1.0.0.1_Launcher_x64.msix"
 $PackageName = "LotsOfStuffWinUI"
 $NumberOfRuns = 500
 $StartSettleMS = 5000
@@ -22,7 +22,11 @@ if ($Ins -eq $null)
 	add-appxPackage $fullPackagePath
 	$Ins = (get-appxPackage -name $PackageName).InstallLocation
 }
-if ($Ins -eq $null) 
+if ($Ins -ne $null)
+{
+	$Ins = $Ins + "\LotsOfStuffWinUI_DotNet"
+}
+else 
 {
 	Write-Host -ForegroundColor "Red" "Could not find the installed package. Please install the package first."
 	exit 1

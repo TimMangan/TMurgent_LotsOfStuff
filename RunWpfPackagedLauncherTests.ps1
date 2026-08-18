@@ -7,7 +7,7 @@ Write-Host -ForegroundColor "Cyan" "Starting WPF Packaged with PsfLauncher Tests
 $executingScriptDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 $Scenario = "LauncherOnly"
-$PackageRelativePath = "LotsOfStuffWPFPackage_1.0.0.1_Launcher_AnyCPU.msix"
+$PackageRelativePath = "LotsOfStuffWPF_Package_1.0.0.1_Launcher_AnyCPU.msix"
 $PackageName = "LotsOfStuffWPF"
 $NumberOfRuns = 500
 $StartSettleMS = 5000

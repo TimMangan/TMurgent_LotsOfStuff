@@ -125,7 +125,7 @@ namespace LotsOfStuffWinUI_DotNet
                     Test0();
                     break;
                 case 1:
-                    TestLabel.Text += ": Sleeps for 50ms, 100 times.";
+                    TestLabel.Text += ": Sleeps for 5 seconds.";
                     CloseAfterTest = true;
                     Test1();
                     break;
